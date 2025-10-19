@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # run when you push to main (change if your default branch differs)
+      - main  # change if your default branch differs
 
 jobs:
   build-and-deploy:
@@ -20,13 +20,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      - name: Build (produce static out/)
         env:
-          # signal to next.config.js that we are deploying to GitHub Pages
-          GITHUB_PAGES: '1'
+          GITHUB_PAGES: '1'   # signals next.config.js to use /testing_chess basePath
         run: |
           npm run build
-          npm run export
 
       - name: Create .nojekyll
         run: echo > out/.nojekyll
@@ -35,5 +33,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
+          publish_branch: gh-pages
           publish_dir: ./out
           publish_branch: gh-pages
