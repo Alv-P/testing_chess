@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export",
+    "build:export": "NEXT_PUBLIC_BASE_PATH=/testing_chess GITHUB_PAGES=1 npm run build && npm run export"
   },
   "dependencies": {
     "next": "^15.5.6",
